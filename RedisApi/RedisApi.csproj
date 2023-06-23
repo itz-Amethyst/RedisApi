@@ -15,8 +15,4 @@
     <ProjectReference Include="..\RedisApiManagement.Infrastructure.Configuration\RedisApiManagement.Infrastructure.Configuration.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
 </Project>
