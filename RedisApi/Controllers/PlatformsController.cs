@@ -27,5 +27,13 @@ namespace RedisApi.Controllers
 
             return NotFound();
         }
+
+        [HttpPost]
+        public ActionResult<PlatformViewModel> CreatePlatform(CreatePlatform command)
+        {
+            _platformRepository.CreatePlatform(command);
+
+            return CreatedAtRoute(nameof(GetPlatformById), new { Id = command.Id }, command);
+        }
     }
 }
