@@ -6,4 +6,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="StackExchange.Redis" Version="2.6.116" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RedisApiManagement.Domain\RedisApiManagement.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
