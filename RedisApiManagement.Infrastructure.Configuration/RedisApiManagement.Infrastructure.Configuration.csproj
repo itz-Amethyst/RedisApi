@@ -11,4 +11,9 @@
     <PackageReference Include="StackExchange.Redis" Version="2.6.116" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\RedisApiManagement.Domain\RedisApiManagement.Domain.csproj" />
+    <ProjectReference Include="..\RedisApiManagement.Infrastructure\RedisApiManagement.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
