@@ -25,8 +25,13 @@ namespace RedisApiManagement.Infrastructure.Repository
 
             var serialPlat = JsonSerializer.Serialize(command);
 
-            db.StringSet(command.Id, serialPlat);
-            db.SetAdd("PlatformSet", serialPlat);
+            //db.StringSet(command.Id, serialPlat);
+            //db.SetAdd("PlatformSet", serialPlat);
+
+            db.HashSet("HashPlatform", new HashEntry[]
+            {
+                new HashEntry(command.Id, serialPlat)
+            });
 
         }
 
@@ -34,7 +39,10 @@ namespace RedisApiManagement.Infrastructure.Repository
         {
             var db = _redis.GetDatabase();
 
-            var plat = db.StringGet(platformId);
+            //var plat = db.StringGet(platformId);
+
+            var plat = db.HashGet("HashPlatform" , platformId);
+
 
             if (!string.IsNullOrEmpty(plat))
             {
@@ -48,11 +56,14 @@ namespace RedisApiManagement.Infrastructure.Repository
         {
             var db = _redis.GetDatabase();
 
-            var completeSet = db.SetMembers("PlatformSet");
+            //var completeSet = db.SetMembers("PlatformSet");
 
-            if (completeSet.Length > 0)
+            var completeHash = db.HashGetAll("HashPlatform");
+
+
+            if (completeHash.Length > 0)
             {
-                var obj = Array.ConvertAll(completeSet, val => JsonSerializer.Deserialize<PlatformViewModel>(val))
+                var obj = Array.ConvertAll(completeHash, val => JsonSerializer.Deserialize<PlatformViewModel>(val.Value))
                     .ToList();
 
                 return obj;
