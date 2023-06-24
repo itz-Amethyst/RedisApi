@@ -35,5 +35,12 @@ namespace RedisApi.Controllers
 
             return CreatedAtRoute(nameof(GetPlatformById), new { Id = command.Id }, command);
         }
+
+        [HttpGet]
+        public ActionResult<IEnumerable<PlatformViewModel>> GetAllPlatforms()
+        {
+
+            return Ok(_platformRepository.GetAllPlatforms());
+        }
     }
 }
