@@ -26,6 +26,7 @@ namespace RedisApiManagement.Infrastructure.Repository
             var serialPlat = JsonSerializer.Serialize(command);
 
             db.StringSet(command.Id, serialPlat);
+            db.SetAdd("PlatformSet", serialPlat);
 
         }
 
@@ -43,9 +44,21 @@ namespace RedisApiManagement.Infrastructure.Repository
             return null;
         }
 
-        public IEnumerable<PlatformViewModel> GetAllPlatforms()
+        public IEnumerable<PlatformViewModel>? GetAllPlatforms()
         {
-            throw new NotImplementedException();
+            var db = _redis.GetDatabase();
+
+            var completeSet = db.SetMembers("PlatformSet");
+
+            if (completeSet.Length > 0)
+            {
+                var obj = Array.ConvertAll(completeSet, val => JsonSerializer.Deserialize<PlatformViewModel>(val))
+                    .ToList();
+
+                return obj;
+            }
+
+            return null;
         }
     }
 }

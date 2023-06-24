@@ -10,6 +10,6 @@ namespace RedisApiManagement.Domain.Platform
 
         PlatformViewModel? GetPlatformById(string platformId);
 
-        IEnumerable<PlatformViewModel> GetAllPlatforms();
+        IEnumerable<PlatformViewModel>? GetAllPlatforms();
     }
 }
